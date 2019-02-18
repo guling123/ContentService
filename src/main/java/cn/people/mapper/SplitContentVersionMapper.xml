@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.people.mapper.SplitContentVersionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.people.entity.SplitContentVersion">
+    <result column="id" property="id" />
+        <result column="splitid" property="splitid" />
+        <result column="showtitle" property="showtitle" />
+        <result column="dtype" property="dtype" />
+        <result column="contentid" property="contentid" />
+        <result column="createtime" property="createtime" />
+        <result column="subindex" property="subindex" />
+        <result column="createrid" property="createrid" />
+        <result column="href" property="href" />
+        <result column="dstatus" property="dstatus" />
+        <result column="tops" property="tops" />
+        <result column="versionid" property="versionid" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        splitid, showtitle, dtype, contentid, createtime, subindex, createrid, href, dstatus, tops, versionid
+    </sql>
+
+</mapper>

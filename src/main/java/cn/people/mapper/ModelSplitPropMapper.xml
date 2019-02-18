@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.people.mapper.ModelSplitPropMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.people.entity.ModelSplitProp">
+        <result column="id" property="id" />
+        <result column="model_split_id" property="modelSplitId" />
+        <result column="split_prop_id" property="splitPropId" />
+        <result column="prop_value" property="propValue" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_time" property="modifyTime" />
+        <result column="model_id" property="modelId" />
+        <result column="create_id" property="createId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        model_split_id, split_prop_id, prop_value, create_time, modify_time, model_id, create_id
+    </sql>
+
+    <select id="getModelSplitPropListByChannel" resultType="java.util.HashMap">
+    SELECT
+      tsp.prop_name name,
+      msp.prop_value pvalue,
+      msp.id id,
+      tsp.prop_des des
+    FROM
+      tb_model_split_prop msp
+      LEFT JOIN tb_split_prop tsp
+      ON msp.split_prop_id = tsp.id
+    WHERE tsp.prop_level = '1' AND msp.model_split_logic_id = #{modelSpiltLogicId,jdbcType=CHAR} and msp.state='1'
+    </select>
+    
+    <select id="selectHasPage" parameterType="java.util.List" resultMap="BaseResultMap">
+        select b.* 
+        from tb_split_prop a, tb_model_split_prop b
+        where a.id = b.split_prop_id 
+        and b.model_split_logic_id in 
+        <foreach collection="tagIdList" index="index" item="item" open=" (" separator="," close=") ">
+            #{item}
+        </foreach>
+        and (a.prop_name = '手选内容_是否显示翻页控制栏' 
+        or a.prop_name = '新闻_自动新闻_是否显示翻页控制栏' 
+        or a.prop_name = '图片_自动图片_是否显示翻页控制栏' 
+        or a.prop_name = '节点_自动节点_是否显示翻页控制栏' 
+        or a.prop_name = '新闻_关键字相关新闻_是否显示翻页控制栏')
+    </select>
+
+</mapper>

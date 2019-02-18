@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.people.mapper.ContentVersionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.people.entity.ContentVersion">
+    <result column="id" property="id" />
+        <result column="contentid" property="contentid" />
+        <result column="title" property="title" />
+        <result column="subtitle" property="subtitle" />
+        <result column="shouldertitle" property="shouldertitle" />
+        <result column="author" property="author" />
+        <result column="description" property="description" />
+        <result column="imageid" property="imageid" />
+        <result column="imageurl" property="imageurl" />
+        <result column="modelid" property="modelid" />
+        <result column="content" property="content" />
+        <result column="createtime" property="createtime" />
+        <result column="dtype" property="dtype" />
+        <result column="operatorid" property="operatorid" />
+        <result column="contentchange" property="contentchange" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        contentid, title, subtitle, shouldertitle, author, description, imageid, imageurl, modelid, content, createtime, dtype, operatorid, contentchange
+    </sql>
+
+</mapper>

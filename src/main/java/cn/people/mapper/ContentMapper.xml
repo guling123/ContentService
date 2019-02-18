@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.people.mapper.ContentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.people.entity.Content">
+        <result column="id" property="id"/>
+        <result column="siteid" property="siteid"/>
+        <result column="versionid" property="versionid"/>
+        <result column="sourceid" property="sourceid"/>
+        <result column="sendtime" property="sendtime"/>
+        <result column="createtime" property="createtime"/>
+        <result column="updatetime" property="updatetime"/>
+        <result column="dstatus" property="dstatus"/>
+        <result column="dtype" property="dtype"/>
+    </resultMap>
+
+    <resultMap id="ContentListResult" type="cn.people.controller.vo.ContentListVO">
+        <result column="id" property="id"/>
+        <result column="siteid" property="siteId"/>
+        <result column="sourceurl" property="sourceUrl"/>
+        <result column="title" property="title"/>
+        <result column="dtype" property="dtype"/>
+        <result column="url" property="url"/>
+        <result column="sourcename" property="sourceName"/>
+        <result column="createname" property="createName"/>
+        <result column="createtime" property="createTime"/>
+        <result column="logicId" property="logicId"/>
+        <result column="dstatus" property="dstatus"/>
+        <result column="sendtime" property="sendTime"/>
+        <result column="channelLogicid" property="channelLogicId"/>
+    </resultMap>
+
+    <resultMap id="ContentResultMap" type="cn.people.controller.vo.ContentResultVO">
+        <result column="id" property="id"/>
+        <result column="siteid" property="siteid"/>
+        <result column="versionid" property="versionid"/>
+        <result column="title" property="title"/>
+        <result column="subtitle" property="subtitle"/>
+        <result column="shouldertitle" property="shouldertitle"/>
+        <result column="author" property="author"/>
+        <result column="description" property="description"/>
+        <result column="sourceid" property="sourceid"/>
+        <result column="sourcename" property="sourcename"/>
+        <result column="sourceurl" property="sourceurl"/>
+        <result column="imageid" property="imageid"/>
+        <result column="imageurl" property="imageurl"/>
+        <result column="sendtime" property="sendtime"/>
+        <result column="dstatus" property="dstatus"/>
+        <result column="modelid" property="modelid"/>
+        <result column="content" property="content"/>
+        <result column="createtime" property="createtime"/>
+        <result column="updatetime" property="updatetime"/>
+        <result column="dstatus" property="dstatus"/>
+        <result column="dtype" property="dtype"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        siteid, versionid, sourceid, sendtime, createtime, updatetime, dstatus, dtype
+    </sql>
+
+    <!--通过id date 查询content-->
+    <select id="findByNumberHQL" resultMap="ContentResultMap">
+      SELECT
+      ton.id id,
+      ton.siteid siteid,
+      ton.versionid versionid,
+      ton.sourceurl sourceurl,
+      ton.sourcename sourcename,
+      ton.dstatus dstatus,
+      ton.dtype dtype,
+      ton.createtime createtime,
+      ton.updatetime,
+      ton.sourceid sourceid,
+      tcv.title title,
+      tcv.subtitle subtitle,
+      tcv.shouldertitle shouldertitle,
+      tcv.author author,
+      tcv.description description,
+      tcv.imageid imageid,
+      tcv.imageurl imageurl,
+      tcv.createtime2 sendtime,
+      tcv.modelid modelid,
+      tcv.content content
+      FROM
+        tb_content_version tcv
+        LEFT JOIN tb_content ton
+          ON tcv.id = ton.versionid
+        LEFT JOIN tb_content_channel tcc
+          ON tcc.contentid = ton.id
+        LEFT JOIN tb_channel tc
+          ON tcc.channelid = tc.id
+      WHERE tc.logic_id = #{node_id,jdbcType=INTEGER}
+         AND ton.dstatus = 7
+         AND ton.createtime &gt; #{inputDate,jdbcType=TIMESTAMP}
+      ORDER BY ton.createtime DESC
+    </select>
+
+    <!--通过id date 和contentId查询content-->
+    <select id="findByThreeParam" resultMap="ContentResultMap">
+      SELECT
+      ton.id id,
+      ton.siteid siteid,
+      ton.versionid versionid,
+      ton.sourceurl sourceurl,
+      ton.sourcename sourcename,
+      ton.dstatus dstatus,
+      ton.dtype dtype,
+      ton.createtime createtime,
+      ton.updatetime,
+      ton.sourceid sourceid,
+      tcv.title title,
+      tcv.subtitle subtitle,
+      tcv.shouldertitle shouldertitle,
+      tcv.author author,
+      tcv.description description,
+      tcv.imageid imageid,
+      tcv.imageurl imageurl,
+      tcv.createtime2 sendtime,
+      tcv.modelid modelid,
+      tcv.content content
+      FROM
+        tb_content_version tcv
+        LEFT JOIN tb_content ton
+          ON tcv.id = ton.versionid
+        LEFT JOIN tb_content_channel tcc
+          ON tcc.contentid = ton.id
+        LEFT JOIN tb_channel tc
+          ON tcc.channelid = tc.id
+      WHERE tc.logic_id = #{node_id,jdbcType=INTEGER}
+         AND ton.id = #{contentId,jdbcType=VARCHAR}
+         AND ton.dstatus = 7
+         AND ton.createtime &gt; #{inputDate,jdbcType=TIMESTAMP}
+      ORDER BY ton.createtime DESC
+    </select>
+
+    <select id="getlistAutoNews" resultMap="ContentResultMap">
+        SELECT
+        ton.id id,
+        ton.siteid siteid,
+        ton.versionid versionid,
+        ton.sourceurl sourceurl,
+        ton.sourcename sourcename,
+        ton.dstatus dstatus,
+        ton.dtype dtype,
+        ton.createtime createtime,
+        ton.updatetime,
+        ton.sourceid sourceid,
+        tcv.title title,
+        tcv.subtitle subtitle,
+        tcv.shouldertitle shouldertitle,
+        tcv.author author,
+        tcv.description description,
+        tcv.imageid imageid,
+        tcv.imageurl imageurl,
+        tcv.createtime2 sendtime,
+        tcv.modelid modelid,
+        tcv.content content
+        FROM
+        tb_content_version tcv
+        LEFT JOIN tb_content ton
+        ON tcv.id = ton.versionid
+        LEFT JOIN tb_content_channel tcc
+        ON tcc.contentid = ton.id
+        LEFT JOIN tb_channel tc
+        ON tcc.channelid = tc.id
+        WHERE ton.id = #{contentId,jdbcType=VARCHAR}
+        AND ton.dstatus = 7
+        AND ton.createtime &gt; #{searchParam.startTime,jdbcType=TIMESTAMP}
+        AND ton.createtime &lt; #{searchParam.endTime,jdbcType=TIMESTAMP}
+        AND tc.logic_id in
+        <foreach item="item" index="index" collection="contentViewSearchRequestVO.NodeList"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        <if test="contentViewSearchRequestVO.contentIdList != null">
+            AND ton.id not in
+            <foreach collection="contentViewSearchRequestVO.contentIdList" item="contentId" index="index"
+                     open="(" close=")" separator=",">
+                #{contentId}
+            </foreach>
+        </if>
+        <if test="searchParam.onlyImageNews == true">
+            AND #{tcv.imagecount} &gt; 0
+        </if>
+        <if test=" contentViewSearchRequestVO.contentIdList1 != null">
+            AND ton.id not in
+            <foreach collection="contentViewSearchRequestVO.contentIdList1" item="contentId"
+                     open="(" close=")" separator=",">
+                #{contentId}
+            </foreach>
+        </if>
+        <choose>
+            <when test="searchParam.orderBy != null">
+                and order by #{searchParam.orderBy} desc
+            </when>
+        </choose>
+        limit #{searchParam.limit,jdbcType=INTEGER};
+    </select>
+    <!---->
+    <select id="listContentDetails" resultMap="ContentResultMap">
+            SELECT
+            ton.id id,
+            ton.siteid siteid,
+            ton.versionid versionid,
+            ton.sourceurl sourceurl,
+            ton.sourcename sourcename,
+            ton.dstatus dstatus,
+            ton.dtype dtype,
+            ton.createtime createtime,
+            ton.updatetime,
+            ton.sourceid sourceid,
+            tcv.title title,
+            tcv.subtitle subtitle,
+            tcv.shouldertitle shouldertitle,
+            tcv.author author,
+            tcv.description description,
+            tcv.imageid imageid,
+            tcv.imageurl imageurl,
+            tcv.createtime2 sendtime,
+            tcv.modelid modelid,
+            tcv.content content
+            FROM
+            tb_content_version tcv
+            LEFT JOIN tb_content ton
+            ON tcv.id = ton.versionid
+            LEFT JOIN tb_content_channel tcc
+            ON tcc.contentid = ton.id
+            LEFT JOIN tb_channel tc
+            ON tcc.channelid = tc.id
+            WHERE ton.dstatus = 7
+            AND ton.createtime &gt; #{searchParam.startTime,jdbcType=TIMESTAMP}
+            AND ton.createtime &lt; #{searchParam.endTime,jdbcType=TIMESTAMP}
+            AND tc.logic_id in
+            <foreach item="item" index="index" collection="contentViewSearchRequestVO.NodeList"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+            limit #{searchParam.limit,jdbcType=INTEGER};
+        </select>
+
+    <select id="getContentPaged" parameterType="cn.people.controller.vo.ContentPageQueryVO" resultMap="ContentListResult">
+        SELECT
+        ton.id id,
+        ton.siteid siteid,
+        ton.sourceurl sourceurl,
+        tcv.title title,
+        ton.dtype dtype,
+        ton.sourcename sourcename,
+        ton.createtname createName,
+        ton.createtime createtime,
+        ton.sendtime sendtime,
+        ton.url url,
+        ton.dstatus dstatus,
+        ton.logic_id logicId,
+        tbc.logic_id channelLogicid
+        FROM
+        tb_content ton
+        LEFT JOIN `tb_content_version` tcv
+        ON ton.versionid = tcv.id
+        left  join tb_channel tbc
+        on tbc.id = ton.channelid
+        WHERE ton.channelid = #{param.channelid, jdbcType=VARCHAR}
+              and ton.dstatus!='8'
+            <if test="param.createIdsList != null and param.createIdsList.size > 0">
+                AND ton.createtid in
+                <foreach item="item" index="index" collection="param.createIdsList"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="param.key != null and param.key != ''">
+                and (tcv.title like #{param.key} or ton.id =#{param.key, jdbcType=VARCHAR})
+            </if>
+            <if test="param.dtype != null">
+                and ton.dtype = #{param.dtype, jdbcType=VARCHAR}
+            </if>
+            <if test="param.dstatus != null">
+                and ton.dstatus = #{param.dstatus, jdbcType=VARCHAR}
+            </if>
+            <if test="param.dstatusSet != null and param.dstatusSet.length> 0">
+                AND ton.dstatus in
+                <foreach item="item" index="index" collection="param.dstatusSet"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="param.sourceid != null and param.sourceid != ''">
+                and ton.sourceid = #{param.sourceid, jdbcType=VARCHAR}
+            </if>
+           <!-- <if test="param.createTime != null">
+                and ton.createtime between  #{param.startTime} and #{param.endTime}
+            </if>
+            <if test="param.createTime != null">
+                and ton.createtime between  #{param.startTime} and #{param.endTime}
+            </if>-->
+        order by ton.createtime desc
+    </select>
+	<select id="listChannelContents" resultMap="BaseResultMap">
+		SELECT c.id,
+		c.siteid, c.versionid, c.sourceid, c.sendtime, c.createtime, c.updatetime, c.dstatus, c.dtype
+		FROM tb_content c
+		Inner JOIN tb_content_channel cc
+		ON cc.contentid = c.id
+		WHERE cc.channelid = #{channelId,jdbcType=INTEGER}
+		<if test="status != null and status.length>0 ">
+			AND c.dstatus in
+			<foreach
+				collection="status"
+				item="item" index="index" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+</mapper>

@@ -1,0 +1,26 @@
+spring:
+#  cloud:
+#     config:
+       #配置文件名称，必填，默认application，不需要修改
+#       name: contentService
+       #当前项目需要引用的公共配置，最后一个{spring.application.name}不可缺失
+#       profile: test
+       #当前配置环境，默认dev，不可修改。环境切换通过不同环境的服务启动脚本实现。
+#       label: dev
+       #配置中心URL，不可修改。已经通过各个环境的DNS解析，各个环境都可以访问。
+#       uri: http://localhost:8083
+  servlet:
+    multipart:
+      max-file-size: 60MB
+      max-request-size: 10MB
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:10000/eureka/
+info:
+  app.name: contentService
+  company.name: 人民网科技（北京）有限公司
+  build.version: 0.0.1-SNAPSHOT
+
+   

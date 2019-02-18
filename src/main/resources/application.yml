@@ -1,0 +1,51 @@
+server:
+  port: 20000
+mybatis-plus:
+
+  mapper-locations: classpath*:cn/people/mapper/*.xml
+  type-aliases-package: com.baomidou.mybatisplus.samples.quickstart.entity
+  executor-type: simple
+  configuration:
+    cache-enabled: true
+spring:
+  application:
+    name: contentService
+  profiles:
+    active:
+    - dev
+  datasource:
+    url: jdbc:mysql://10.3.37.239:3306/content?useUnicode=true&useSSL=false&characterEncoding=utf8
+    username: root
+    password: 1qaz@WSX
+    driverClassName: com.mysql.jdbc.Driver
+  thymeleaf:
+    suffix: .html
+    prefix: classpath:/templates/
+    check-template-location: true
+    encoding: UTF-8
+    servlet:
+      content-type: text/html 
+    mode: HTML5
+    cache: false
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+  zipkin:
+    #base-url: http://localhost:9411
+    #enabled: true
+    sender:
+      type: rabbit
+    sleuth:
+      sampler:
+        percentage: 1.0
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+model:
+   modelDir: E:/tools/nginx/nginx-1.15.7/html/
+   channelView: /view/channel/{id}/page
+   contentView: /view/content/{id}/page
+   

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.people.mapper.ChannelMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.people.entity.Channel">
+    <result column="id" property="id" />
+        <result column="siteid" property="siteid" />
+        <result column="logic_id" property="logicId" />
+        <result column="channel_name" property="channelName" />
+        <result column="ident" property="ident" />
+        <result column="dtype" property="dtype" />
+        <result column="display" property="display" />
+        <result column="image_id" property="imageId" />
+        <result column="description" property="description" />
+        <result column="deep" property="deep" />
+        <result column="parent_id" property="parentId" />
+        <result column="parent_string" property="parentString" />
+        <result column="channel_model_id" property="channelModelId" />
+        <result column="content_model_id" property="contentModelId" />
+        <result column="images_model_id" property="imagesModelId" />
+        <result column="domain" property="domain" />
+        <result column="status_release" property="statusRelease" />
+        <result column="create_time" property="createTime" />
+        <result column="creater_id" property="createrId" />
+        <result column="dstatus" property="dstatus" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        siteid, logic_id, channel_name, ident, dtype, display, image_id, description, deep, parent_id,parent_string, channel_model_id, content_model_id, images_model_id, domain, status_release, create_time, creater_id, dstatus
+    </sql>
+
+</mapper>

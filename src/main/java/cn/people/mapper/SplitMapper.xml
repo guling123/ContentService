@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.people.mapper.SplitMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.people.entity.Split">
+    <result column="id" property="id" />
+        <result column="logic_id" property="logicId" />
+        <result column="type" property="type" />
+        <result column="has_content" property="hasContent" />
+        <result column="has_text" property="hasText" />
+        <result column="has_node" property="hasNode" />
+        <result column="hash_image" property="hashImage" />
+        <result column="split_name" property="splitName" />
+        <result column="class_name" property="className" />
+        <result column="creater_id" property="createrId" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        logic_id, type, has_content, has_text, has_node, hash_image, split_name, class_name, creater_id, create_time
+    </sql>
+
+</mapper>
